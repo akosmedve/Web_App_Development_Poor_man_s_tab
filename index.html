@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Poor man's tabs</title>
+<link rel="icon" type="image/x-icon" href="misc/fav_icon.ico">
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+<header>
+    <div class="stick">
+    <h1><a href="index.html" id="homeLink">Poor man's tabs</a></h1>
+    
+    <div id="userArea">
+        <button id="loginBtnHeader" class="btn btn-light">login</button>
+        <button id="registerBtnHeader" class="btn btn-light">register</button>
+    </div>
+    </div>
+
+</header>
+
+<main class="container"> 
+
+    <section class="content">
+        <h2 id="tabsTitle">Tabs</h2>
+
+        <div id="listView">
+            <div style="margin-bottom:10px;">
+                Show 
+                <select id="pageSizeSelect">
+                    <option value="10">10</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                    <option value="-1">All</option>
+                </select>
+                entries
+            </div>
+
+            <table id="tabListTable">
+                <thead>
+                    <tr>
+                        <th data-column="song_title">Song Title ▲▼</th>
+                        <th data-column="artist_name">Artist ▲▼</th>
+                        <th data-column="rating">Rating ▲▼</th>
+                    </tr>
+                </thead>
+                <tbody id="tabList"></tbody>
+            </table>
+
+            <div style="margin-top:10px;">
+                <button id="prevPage" class="btn btn-dark">Previous</button>
+                <span id="pageInfo"></span>
+                <button id="nextPage" class="btn btn-dark">Next</button>
+            </div>
+        </div>
+
+        <div class="tabWrapper">
+            <div id="tabViewer" style="display:none;">
+                <button id="backToList" class="btn btn-dark">← Back to results</button>
+                <button id="printTab" class="btn btn-dark">Print</button>
+                <pre id="tabContent" class="tab"></pre>
+            </div>
+        </div>
+
+
+        <div id="uploadView" style="display:none;">
+            <h2>Upload Tab / Chord</h2>
+            <form id="uploadForm">
+                Artist<br><input type="text" id="uploadArtistName"><br><br>
+                Song Title<br><input type="text" id="uploadSongTitle"><br><br>
+                Type<br>
+                <select id="uploadType">
+                    <option value="Tab">Tab</option>
+                    <option value="Chord">Chord</option>
+                </select><br><br>
+                Tablature<br><textarea id="uploadTablature" rows="12"></textarea><br><br>
+                <button type="button" id="uploadBtn" class="btn btn-dark">Submit</button>
+                <button type="button" id="uploadBackBtn" class="btn btn-dark">Back</button>
+            </form>
+            <p id="uploadMessage"></p>
+        </div>
+
+        <div id="loginView" style="display:none">
+            <h2>Login</h2>
+            <input id="loginUsername" placeholder="Username">
+            <input id="loginPassword" type="password" placeholder="Password">
+            <button id="loginBtn" class="btn btn-dark">Login</button>
+            <button id="showRegister" class="btn btn-dark">Register</button>
+            <button id="loginBackBtn" class="btn btn-dark">Back</button>
+            <div id="loginError"></div>
+        </div>
+
+        <div id="registerView" style="display:none;">
+            <h2>Create Account</h2>
+            <input id="registerUsername" placeholder="Username">
+            <input id="registerEmail" type="email" placeholder="Email">
+            <input id="registerPassword" type="password" placeholder="Password">
+            <button id="registerBtn" class="btn btn-dark">Create Account</button>
+            <button id="registerBack" class="btn btn-dark">Back</button>
+            <div id="registerError"></div>
+        </div>
+
+        <div id="profileView" style="display:none;">
+
+            <h2>Profile</h2>
+
+                <h3 id="profileUsername"></h3>
+
+                <label>Email</label><br>
+                <input id="profileEmail"><br>
+                <button id="updateEmailBtn" class="btn btn-dark">Update Email</button><br><br>
+
+                <label>Password</label><br>
+                <input id="profilePassword" type="password" placeholder="New password"><br>
+                <button id="updatePasswordBtn" class="btn btn-dark">Update Password</button>
+            <hr>
+                <h3>Your uploaded tabs</h3>
+                <div id="userTabs"></div>
+
+            <hr>
+                <button id="deleteAccountBtn" class="btn btn-dark">
+                    Delete Account
+                </button>
+
+        </div>
+
+    </section>
+
+    <aside class="sidebar">
+        <div class="searchTools">
+            <h2>Search</h2>
+            <div class="searchBox">
+                <input type="text" id="searchInput" placeholder="Search tabs...">
+                <button id="searchButt" class="btn btn-dark">search</button>
+                <button id="clearSearchBtn" class="btn btn-dark">clear</button>
+            </div>
+        </div>
+        <div class="adContainer">
+            <div class="adBox">
+                <p>Advertisement</p>
+            </div>
+        </div>
+    </aside>
+
+</main>
+
+<script src="js/app.js"></script>
+
+</body>
+</html>
