@@ -7,6 +7,7 @@ const tabContent = document.getElementById('tabContent');
 const searchBtn = document.getElementById('searchButt');
 const searchInput = document.getElementById('searchInput');
 const clearSearchBtn = document.getElementById('clearSearchBtn');
+const sidebar = document.getElementById("sidebar");
 
 // Views
 const listView = document.getElementById('listView');
@@ -25,6 +26,8 @@ const registerBtn = document.getElementById('registerBtn');
 const registerBack = document.getElementById('registerBack');
 const updateEmailBtn = document.getElementById('updateEmailBtn');
 const deleteAccountBtn = document.getElementById('deleteAccountBtn');
+const handleBtn = document.getElementById("handleBtn");
+const uploaderBtn = document.getElementById("uploaderBtn");
 
 // Header
 const userArea = document.getElementById('userArea');
@@ -232,15 +235,19 @@ pageSizeSelect.addEventListener('change', () => {
 searchBtn.addEventListener('click', () => {
     const query = searchInput.value.trim();
     searchTabs(query);
+    sidebar.classList.remove("active");
 });
+
 //Search with enter
 searchInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
         e.preventDefault();
         const query = searchInput.value.trim();
         searchTabs(query);
+        sidebar.classList.remove("active");
     }
 });
+
 //Search eraser (clear butt)
 clearSearchBtn.addEventListener('click', () => {
     searchInput.value = '';
@@ -254,9 +261,6 @@ backBtn.addEventListener('click', () => showView('list'));
 // Print tab
 printBtn.addEventListener('click', () => window.print());
 
-/* Login link in header- OBSOLETE
-loginLink.addEventListener('click', (e) => showView('login'));*/
-
 // Login view back butt
 loginBackBtn.addEventListener('click', () => showView('list'));
 
@@ -265,6 +269,17 @@ showRegister.addEventListener('click', () => showView('register'));
 
 // Register view back butt
 registerBack.addEventListener('click', () => showView('login'));
+
+//Uploader butt
+uploaderBtn.addEventListener('click', () => {
+                    hideAllViews();
+                    uploadView.style.display = 'block';
+                });
+
+// Mobile sidebar pop-up butt
+handleBtn.addEventListener("click", () => {
+    sidebar.classList.toggle("active");
+});
 
 // ASYNC FUNCTIONS
 
@@ -277,28 +292,33 @@ async function loadProfile() {
     document.getElementById('profileEmail').value = data.email;
 
     const container = document.getElementById('userTabs');
-    container.innerHTML = '';
+container.innerHTML = '';
 
-    data.tabs.forEach(tab => {
-        const div = document.createElement('div');
-        div.textContent = `${tab.song_title} - ${tab.artist_name}`;
+//Load user-uploaded tabs (if any) with delete button
+data.tabs.forEach(tab => {
+    const row = document.createElement('div');
+    row.className = 'tab-row';
 
-        const delBtn = document.createElement('button');
-        delBtn.textContent = 'delete';
-        delBtn.className = 'btn btn-dark';
+    const text = document.createElement('span');
+    text.textContent = `${tab.song_title} - ${tab.artist_name}`;
 
-        delBtn.addEventListener('click', async () => {
-            await fetch('api/delete_tab.php', {
-                method: 'POST',
-                headers: {'Content-Type':'application/json'},
-                body: JSON.stringify({tab_id: tab.tab_id})
-            });
-            loadProfile();
+    const delBtn = document.createElement('button');
+    delBtn.textContent = 'delete';
+    delBtn.className = 'btn btn-dark';
+
+    delBtn.addEventListener('click', async () => {
+        await fetch('api/delete_tab.php', {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({tab_id: tab.tab_id})
         });
-
-        div.appendChild(delBtn);
-        container.appendChild(div);
+        loadProfile();
     });
+
+    row.appendChild(text);
+    row.appendChild(delBtn);
+    container.appendChild(row);
+});
 }
 
 // Search tabs
@@ -514,7 +534,7 @@ uploadBackBtn.addEventListener('click', () => {
     listView.style.display = 'block';
 
 });
-
+// Search input field and dropdown
 searchInput.addEventListener('input', async () => {
     const query = searchInput.value.trim();
     if(!query) return;
@@ -570,22 +590,6 @@ async function updateUserHeader() {
         userArea.innerHTML = '';
 
         if (data.loggedIn) {
-
-            /*Upload button (only once) NOT SUBMIT IN UPLOADVIEW!!!!*/
-            if (!document.getElementById('uploadButton')) {
-
-                const uploadButton = document.createElement('button');
-                uploadButton.id = 'uploadButton';
-                uploadButton.classList.add('btn', 'btn-dark') ;
-                uploadButton.textContent = 'Upload Tab';
-
-                uploadButton.addEventListener('click', () => {
-                    hideAllViews();
-                    uploadView.style.display = 'block';
-                });
-
-                document.querySelector('.sidebar').appendChild(uploadButton);
-            }
 
             //Username - Show profile butt
             const profileBtn = document.createElement('button');

@@ -12,7 +12,7 @@ html, body {
 header {
     background: #222;
     color: white;
-    padding: 15px;
+    padding: 10px;
     position: fixed;
     z-index: 100;
     width: 100%;
@@ -116,6 +116,10 @@ header h1 a:hover {
     gap: 10px;
 }
 /*Search elements*/
+#handleBtn {
+       visibility: hidden;
+    }
+
 .searchBox {
     display: flex;
     flex-wrap: wrap;
@@ -197,11 +201,35 @@ tr:hover {
     background-color: #f5f5f5;
 }
 
+#uploadTablature{
+  width: 100%;
+  height: 150px;
+  padding: 12px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  font-size: 14px;
+  resize: none;
+}
+
+.tab-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+}
+
+.tab-row span {
+    flex: 1;
+}
+
 /* Mobile layout */
-@media (max-width: 700px) {
+@media (max-width: 600px) {
     .container {
         display: grid;
         grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
         grid-template-areas:
             "content"
             "sidebar";
@@ -213,42 +241,104 @@ tr:hover {
         overflow-x: hidden;     
         overflow-y: auto;
     }
+    header h1{
+        margin: 0px;
+
+    }
     
     .searchTools h2 {
         display: none; 
         overflow-x: hidden; 
     }
 
-    .sidebar {
+     .sidebar {
         position: fixed;
         bottom: 0;
         left: 0;
         width: 100%;
-        background: white;
-        border-top: 1px solid #ccc;
         padding: 10px;
-        z-index: 100;
-        overflow-x: hidden; 
+        height: 50px; /* collapsed height */
+        background: white;
+
+        transition: height 0.3s ease;
+        overflow: hidden;
+        align-items: center;
+        text-align: center;
+
+        z-index: 1000;
     }
 
+        .sidebar.active {
+            height: 70vh; /* expanded sidebar*/
+        }
+
+
     .searchTools {
+        padding: 0px;
+        gap: 0px;
         margin-bottom: 8px;
+    }
+    .searchBox {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0px;
+        width: 100%;
     }
 
     .adContainer {
-        max-height: 80px;
+        max-height: 150px;
         overflow: auto; /* scroll ads inside sidebar */
         padding-bottom: 10px;
     }
 
-    #searchInput {
-        padding: 6px 12px;
-        font-size: 13px;
+    #userArea, #linkArea {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 0px;
+    }   
+
+    .login_group, .reg_group, .user_buttons {
+        flex-direction: column;
     }
 
+    .profileElement, .login_group input, .reg_group input,
+    .login_group button, .reg_group button, .user_buttons button,
+    .searchBox input, .searchBox button {
+        width: 100%;
+    }
+    #registerError, #loginError {
+        padding: 10px 10px;
+        color: red;
+        text-align: center;
+    }
+    
+    #handleBtn {
+        visibility: visible;
+        border: none;
+        border-radius: 999px; 
+        padding: 6px 16px;
+        font-size: 16px;
+        font-family: Arial, sans-serif;
+        cursor: pointer;
+        transition: background 0.2s, transform 0.1s;
+        margin-top: 6px;
+        margin-bottom: 16px;
+        background: #222;
+        color: #f2f2f2;
+        width: 100%;
+    }
+    #handleBtn::after {
+        content: "▲";
+    }
+
+    .sidebar.active #handleBtn::after {
+        content: "▼";
+    }
     .btn {
         padding: 5px 10px;
-        font-size: 13px;
+        font-size: 16px;
     }
 
   .tabWrapper {
@@ -263,8 +353,8 @@ tr:hover {
     font-family: monospace;
     margin: 0;
 }
-}
 
+}
 /* Print layout */
 @media print {
     * {

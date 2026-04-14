@@ -1,0 +1,31 @@
+/*Login credentials for the SITE USER(S)
+with timestamp for the creation of the credentials
+and timestamp for the update of the credentials*/
+CREATE TABLE user_login_credentials(
+    user_id INT AUTO_INCREMENT PRIMARY KEY, /*unique ID for user profiles*/
+    user_name VARCHAR(255) NOT NULL UNIQUE, /*name of the user profile*/
+    user_password VARCHAR(255) NOT NULL, /*password of the user profile*/
+    date_of_creation DATETIME DEFAULT CURRENT_TIMESTAMP, /*timestamp of the creation of the user profile*/
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP /*timestamp of the update of the user credentials*/
+    );
+
+/*Tablatures*/
+CREATE TABLE tablatures(
+    tab_id INT AUTO_INCREMENT PRIMARY KEY, /*unique ID for tabs*/
+    artist_name VARCHAR(255) NOT NULL, /*name of the artist*/
+    song_title VARCHAR(255) NOT NULL, /*title of the song*/
+    tablature TEXT NOT NULL, /*tablature text form*/
+    date_of_creation DATETIME DEFAULT CURRENT_TIMESTAMP, /*timestamp of the creation of the tab*/
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP /*timestamp of the update of the tab*/
+    );
+
+/*Ratings*/
+CREATE TABLE tab_ratings (
+    rating_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    tab_id INT NOT NULL,
+    rating DECIMAL(2,1) NOT NULL,
+    UNIQUE KEY user_tab (user_id, tab_id),
+    FOREIGN KEY (user_id) REFERENCES user_login_credentials(user_id),
+    FOREIGN KEY (tab_id) REFERENCES tablatures(tab_id)
+);

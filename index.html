@@ -15,11 +15,14 @@
 
 <header>
     <div class="stick">
-    <h1><a href="index.html" id="homeLink">Poor man's tabs</a></h1>
-    
-    <div id="userArea">
-        <button id="loginBtnHeader" class="btn btn-light">login</button>
-        <button id="registerBtnHeader" class="btn btn-light">register</button>
+    <div id="linkArea">
+        <h1><a href="index.html" id="homeLink">Poor man's tabs</a></h1>
+    </div>
+    <div class = user_buttons>
+        <div id="userArea">
+            <button id="loginBtnHeader" class="btn btn-light">login</button>
+            <button id="registerBtnHeader" class="btn btn-light">register</button>
+        </div>
     </div>
     </div>
 
@@ -88,43 +91,50 @@
 
         <div id="loginView" style="display:none">
             <h2>Login</h2>
-            <input id="loginUsername" placeholder="Username">
-            <input id="loginPassword" type="password" placeholder="Password">
-            <button id="loginBtn" class="btn btn-dark">Login</button>
-            <button id="showRegister" class="btn btn-dark">Register</button>
-            <button id="loginBackBtn" class="btn btn-dark">Back</button>
+            <div class="login_group">
+                <input id="loginUsername" placeholder="Username">
+                <input id="loginPassword" type="password" placeholder="Password">
+                <button id="loginBtn" class="btn btn-dark">Login</button>
+                <button id="showRegister" class="btn btn-dark">Register</button>
+                <button id="loginBackBtn" class="btn btn-dark">Back</button>
+            </div>
             <div id="loginError"></div>
         </div>
 
         <div id="registerView" style="display:none;">
             <h2>Create Account</h2>
-            <input id="registerUsername" placeholder="Username">
-            <input id="registerEmail" type="email" placeholder="Email">
-            <input id="registerPassword" type="password" placeholder="Password">
-            <button id="registerBtn" class="btn btn-dark">Create Account</button>
-            <button id="registerBack" class="btn btn-dark">Back</button>
+            <div class="reg_group">
+                <input id="registerUsername" placeholder="Username">
+                <input id="registerEmail" type="email" placeholder="Email">
+                <input id="registerPassword" type="password" placeholder="Password">
+                <button id="registerBtn" class="btn btn-dark">Create Account</button>
+                <button id="registerBack" class="btn btn-dark">Back</button>
+            </div>
             <div id="registerError"></div>
         </div>
 
-        <div id="profileView" style="display:none;">
+        <div id="profileView">
 
             <h2>Profile</h2>
 
                 <h3 id="profileUsername"></h3>
 
                 <label>Email</label><br>
-                <input id="profileEmail"><br>
-                <button id="updateEmailBtn" class="btn btn-dark">Update Email</button><br><br>
+                <input id="profileEmail" class="profileElement"><br>
+                <button id="updateEmailBtn" class="btn btn-dark profileElement">Update Email</button><br><br>
 
                 <label>Password</label><br>
-                <input id="profilePassword" type="password" placeholder="New password"><br>
-                <button id="updatePasswordBtn" class="btn btn-dark">Update Password</button>
+                <input id="profilePassword" class="profileElement" type="password" placeholder="New password"><br>
+                <button id="updatePasswordBtn" class="btn btn-dark profileElement">Update Password</button>
+            <hr>
+                <h3> Upload a tab</h3>
+                <button id="uploaderBtn" class="btn btn-dark profileElement"> Upload </button>
             <hr>
                 <h3>Your uploaded tabs</h3>
                 <div id="userTabs"></div>
 
             <hr>
-                <button id="deleteAccountBtn" class="btn btn-dark">
+                <button id="deleteAccountBtn" class="btn btn-dark profileElement">
                     Delete Account
                 </button>
 
@@ -132,7 +142,8 @@
 
     </section>
 
-    <aside class="sidebar">
+    <aside class="sidebar" id="sidebar">
+        <button id="handleBtn">search menu </button>
         <div class="searchTools">
             <h2>Search</h2>
             <div class="searchBox">
